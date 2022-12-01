@@ -1,8 +1,11 @@
+// Boa lógica, simplificou de ficou legível para outras pessoas entenderem
 const getPokemonUrl = id => `https://pokeapi.co/api/v2/pokemon/${id}`
-
 const generatePokemonPromises = () => Array(150).fill().map((_, index) =>
     fetch(getPokemonUrl(index + 1)).then(response => response.json()))
 
+// Aqui vc já está repedindo 2 loops sem necessidade, teria como simplificar e rodar tudo no .map acima
+// Seria mais rápido o carregamento
+// Poderia usar tbm uma função async que simplificaria mais
 const generateHTML = pokemons =>  pokemons.reduce((accumulator, { name, id, types }) => {
     const elementTypes = types.map(typeInfo => typeInfo.type.name)
 
@@ -17,15 +20,12 @@ const generateHTML = pokemons =>  pokemons.reduce((accumulator, { name, id, type
 }, '')
 
 
-
+// Boa simplificação
 const insertPokemonsIntoPage = pokemons => {
     const ul = document.querySelector('[data-js="pokedex"]')
     ul.innerHTML = pokemons
 }
-
-
 const pokemonPromises = generatePokemonPromises()
-
 Promise.all(pokemonPromises)
     .then(generateHTML)
     .then(insertPokemonsIntoPage)

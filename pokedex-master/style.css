@@ -16,6 +16,7 @@ h1 {
 	font-size: 54px;
 }
 
+/* Display grid muito bem aplicado para responsividade */
 .pokedex {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -24,6 +25,15 @@ h1 {
 }
 
 .card {
+	/* 
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center; 
+
+		solução alternativa
+	*/
+
 	list-style: none;
 	padding: 40px;
 	color: #222;
@@ -32,7 +42,18 @@ h1 {
 	position: relative;
 }
 
+/* 
+	Tem formas mais simples de resolver
+	A ideia é boa. Porém, vc precisaria entender um pouco melhor como o css se comporta
+	Aqui eu não vejo erro, só para deixar claro, enxergo mais alguém tentando dar seu melhor
+ */
 .card::after {
+	/* 
+		height: 50%;
+
+		solução alternativa
+	*/
+	
 	content: "";
   display: block;
   width: 50%;
@@ -40,11 +61,22 @@ h1 {
   border-radius: 100%;
   background-color: #fff;
   opacity: .7;
+	/*
+		Aqui eu demorei um pouco para entender kkk
+		Você tá usando posições fixas para posicionar esse component
+		devido ao uso do ::after
+
+		Minha recomendação
+		Vou poderia usar uma div englobando o a img do card e usando um overflow: hidden;
+		
+		Menos código e talvez funcionaria até melhor
+	*/
   position: absolute;
   top: 15%;
-  left: 25%;
+  left: 25%;	
 }
 
+/* Dá uma pesquisada em variaveis no css e :root */
 .steel {
 	background-color: #f4f4f4;
 }
@@ -105,10 +137,12 @@ h1 {
 	background-color: #F5F5F5;
 }
 
+/* Essa animação foi bem feita até d+ */
 .card:hover {
 	animation: bounce 0.5s linear;
 }
 
+/* Esse z-index é uma das consequências do uso errado da herança do html */
 .card-title {
 	text-transform: capitalize;
 	margin-bottom: 0px;
@@ -126,12 +160,17 @@ h1 {
 	z-index: 2;
 }
 
+/* 
+	Com imagens é sempre bom usar max-width e min-width 
+	Isso cria um range de tamanho da imagem e funciona melhor para responsividade
+*/
 .card-image {
 	height: 180px;
 	position: relative;
 	z-index: 2;
 }
 
+/* Ótimo */
 @keyframes bounce {
 	20% {
 			transform: translateY(-6px);
